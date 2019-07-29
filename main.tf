@@ -3,7 +3,15 @@ terraform {
 }
 
 locals {
+  name = title(var.name)
+
   replace_empty_value = "@_-@^&@%@#"
+
+  valid_types = ["input", "interface", "type"]
+
+  is_valid = index(local.valid_types, var.type) >= 0
+
+  implements = var.type == "type" && var.implements != null ? " implements ${var.implements}" : ""
 
   fields = {
     for name, field in var.fields :
@@ -31,7 +39,7 @@ locals {
       }
   ]
 
-  rendered = templatefile("${path.module}/template/type.tmpl", { name = var.name, type = var.type, fields = local.rendered_fields })
+  rendered = templatefile("${path.module}/template/type.tmpl", { name = local.name, implements = local.implements, type = var.type, fields = local.rendered_fields })
 }
 
 resource "null_resource" "changes" {

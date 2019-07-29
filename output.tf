@@ -3,7 +3,15 @@ output "change_id" {
 }
 
 output "name" {
-  value = var.name
+  value = local.name
+}
+
+output "type" {
+  value = var.type
+}
+
+output "fields" {
+  value = var.fields
 }
 
 output "rendered" {

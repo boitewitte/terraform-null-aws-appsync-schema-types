@@ -21,4 +21,11 @@ variable "fields" {
 variable "type" {
   type = string
   description = "The type: type, interface, input"
+  default = "type"
+}
+
+variable "implements" {
+  type = string
+  description = "Name of the interface to be implemented"
+  default = null
 }
